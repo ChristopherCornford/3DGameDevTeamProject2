@@ -4,20 +4,21 @@ using UnityEngine;
 
 public class HideWalls : MonoBehaviour {
 
+	[Range(0.1f, 3.0f)]
+	public float hiddenWallRadius;
 
 	public Transform player;
-
+	public Vector3 playerPos;
 	public List<Transform> hiddenObjects;
-
 	public LayerMask layerMask;
-	public Ray ray;
+	public RaycastHit ray;
+	public RaycastHit hit;
 	public Color visableColor;
 	public Color hiddenColor;
 
 	// Use this for initialization
 	void Start () {
 		hiddenObjects = new List<Transform>();
-		ray = Camera.main.ScreenPointToRay (transform.position);
 	}
 	
 	// Update is called once per frame
@@ -28,8 +29,9 @@ public class HideWalls : MonoBehaviour {
 		Vector3 direction = player.position - transform.position;
 		float distance = direction.magnitude;
 		Debug.DrawRay (transform.position, direction, Color.red);
-		RaycastHit[] hits = Physics.RaycastAll (transform.position, direction, distance, layerMask);
 
+		playerPos = player.transform.position;
+		RaycastHit[] hits = Physics.SphereCastAll (playerPos, hiddenWallRadius, direction, distance, layerMask);
 		for (int i = 0; i < hits.Length; i++) {
 			Transform currentHit = hits [i].transform;
 
@@ -44,7 +46,7 @@ public class HideWalls : MonoBehaviour {
 
 			for (int j = 0; j < hits.Length; j++) {
 
-				if (hits[j].transform == hiddenObjects[i]) {
+				if (hits [j].transform == hiddenObjects [i]) {
 					isHit = true;
 					break;
 				}
