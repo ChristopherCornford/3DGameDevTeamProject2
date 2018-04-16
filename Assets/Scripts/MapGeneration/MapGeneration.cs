@@ -22,14 +22,18 @@ public class MapGeneration : MonoBehaviour {
 	[Header("Map Smoothing")]
 	public int smoothingPasses;
 
+	[Header("Floor")]
+	public GameObject floor;
+
 	int[,] map;
+
 
 	void Start () {
 		GenerateMap ();
 	}
 
 
-	void GenerateMap () {
+	public void GenerateMap () {
 		map = new int[width, height];
 		RandomFillMap ();
 
@@ -50,6 +54,7 @@ public class MapGeneration : MonoBehaviour {
 					borderedMap [x, y] = 1;
 				}
 			}
+			floor.transform.localScale = new Vector3(width / 10f, 1, height / 10f);
 		}
 
 		MeshGenerator meshGen = GetComponent<MeshGenerator> ();
