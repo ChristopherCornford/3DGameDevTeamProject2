@@ -9,12 +9,18 @@ public class PlayerController : MonoBehaviour {
 	public float playerSpeed;
 
 	private Rigidbody rb;
+	[SerializeField]
+	private Vector3 velocity;
 
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
 	}
-	
+
+
+	void Update() {
+		velocity = new Vector3 (Input.GetAxisRaw ("Horizontal"), 0, Input.GetAxisRaw ("Vertical")).normalized * playerSpeed;
+	}
 	// Update is called once per frame
 	void FixedUpdate () {
 		Move ();
@@ -22,10 +28,6 @@ public class PlayerController : MonoBehaviour {
 
 	void Move() {
 
-		float horizontalMovement = Input.GetAxisRaw ("Horizontal");
-		float verticalMovement = Input.GetAxisRaw ("Vertical");
-
-		Vector3 move = new Vector3 (-verticalMovement, 0.0f, horizontalMovement);
-		rb.AddForce (move * playerSpeed);
+		rb.MovePosition (rb.position + velocity * Time.fixedDeltaTime);
 	}
 }
