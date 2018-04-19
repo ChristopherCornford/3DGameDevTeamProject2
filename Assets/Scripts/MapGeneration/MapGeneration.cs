@@ -4,11 +4,22 @@ using UnityEngine;
 
 public class MapGeneration : MonoBehaviour {
 
+	public class Count {
+		public int minimum;
+		public int maximum;
+
+		public Count (int min, int max) {
+			minimum = min;
+			maximum = max;
+		}
+	}
+
 	[Header("How Many Tiles Is The Map?")]
 	public int width;
 	public int height;
 
 	[Header("Map Variables")]
+	public int currentLevel;
 	[Range(0, 100)]
 	public int fillPercentage;
 	public int borderThickness;
@@ -24,6 +35,17 @@ public class MapGeneration : MonoBehaviour {
 
 	[Header("Floor")]
 	public GameObject floor;
+
+	[Header("Object Arrays")]
+	public GameObject[] items;
+	public GameObject[] enemies;
+	public GameObject startPoint;
+	public GameObject exitPoint;
+
+	public Count itemCount = new Count (5, 10);
+
+	Transform boardManager;
+	List<Vector3> gridPositions = new List<Vector3>();
 
 	int[,] map;
 
@@ -59,6 +81,12 @@ public class MapGeneration : MonoBehaviour {
 
 		MeshGenerator meshGen = GetComponent<MeshGenerator> ();
 		meshGen.GenerateMesh (borderedMap, 1);
+
+		boardManager = new GameObject ("Board Manager").transform;
+		InitializeList ();
+		SpawnGameObjectsAtRandom (items, itemCount.minimum, itemCount.maximum);
+		int enemyCount = (int)Mathf.Log (currentLevel, 2f);
+		SpawnGameObjectsAtRandom (enemies, enemyCount, enemyCount);
 	}
 
 	void ProcessMap() {
@@ -139,7 +167,7 @@ public class MapGeneration : MonoBehaviour {
 
 	void RandomFillMap () {
 		if (useRandomSeed) {
-			seed = (System.DateTime.Now.Ticks * (Random.Range (0, 1000) / 9.24)).ToString();
+			seed = (currentLevel * (Random.Range (0, 1000) / 9.24)).ToString();
 		}
 
 		System.Random pRNG = new System.Random (seed.GetHashCode ());
@@ -193,6 +221,38 @@ public class MapGeneration : MonoBehaviour {
 		public Coord(int x, int y) {
 			tileX = x;
 			tileY = y;
+		}
+	}
+	void InitializeList() {
+		gridPositions.Clear ();
+
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				if (IsInMapRange(x, y) && map[x,y] == 0) {
+					Debug.Log (new Vector3 (x, 0, y));
+					gridPositions.Add (new Vector3(x, 0, y));
+				}
+			}
+		}
+	}
+	Vector3 RandomPosition () {
+
+		int randomIndex = Random.Range (0, gridPositions.Count);
+		Vector3 randomPosition = gridPositions [randomIndex];
+		gridPositions.RemoveAt (randomIndex);
+		return randomPosition;
+	}
+	void SpawnGameObjectsAtRandom(GameObject[] objectArray, int minimum, int maximum) {
+		int objectCount = Random.Range (minimum, maximum + 1);
+
+		for (int i = 0; i < objectCount; i++) {
+			Vector3 randomPosition = RandomPosition ();
+			GameObject toInstantiate = objectArray [Random.Range (0, objectArray.Length)];
+			Debug.Log (toInstantiate.name + "at" + randomPosition);
+			GameObject newObject = Instantiate (toInstantiate, randomPosition, Quaternion.identity) as GameObject;
+			newObject.transform.SetParent (boardManager);
+			newObject.transform.position = new Vector3 (0, 0, 0);
+			newObject.transform.localPosition = randomPosition;
 		}
 	}
 }
