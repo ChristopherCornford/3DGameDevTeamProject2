@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-
+	public Transform camTransform;
 	[Header("Movement")]
 	public float playerSpeed;
 

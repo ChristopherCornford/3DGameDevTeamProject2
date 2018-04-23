@@ -77,6 +77,7 @@ public class MapGeneration : MonoBehaviour {
 				}
 			}
 			floor.transform.localScale = new Vector3(width / 10f, 1, height / 10f);
+			floor.GetComponent<Renderer> ().material.mainTextureScale = new Vector2 (width, height);
 		}
 
 		MeshGenerator meshGen = GetComponent<MeshGenerator> ();
@@ -230,7 +231,6 @@ public class MapGeneration : MonoBehaviour {
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				if (IsInMapRange(x, y) && map[x,y] == 0) {
-					Debug.Log (new Vector3 (x, 0, y));
 					gridPositions.Add (new Vector3(x, 0, y));
 				}
 			}
