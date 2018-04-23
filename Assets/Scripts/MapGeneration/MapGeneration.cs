@@ -83,6 +83,7 @@ public class MapGeneration : MonoBehaviour {
 		meshGen.GenerateMesh (borderedMap, 1);
 
 		boardManager = new GameObject ("Board Manager").transform;
+		boardManager.transform.position = new Vector3 (-(width / 2), -4.5f, -(height / 2));
 		InitializeList ();
 		SpawnGameObjectsAtRandom (items, itemCount.minimum, itemCount.maximum);
 		int enemyCount = (int)Mathf.Log (currentLevel, 2f);

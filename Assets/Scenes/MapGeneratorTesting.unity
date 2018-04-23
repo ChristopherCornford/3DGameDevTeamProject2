@@ -531,13 +531,13 @@ MonoBehaviour:
   width: 50
   height: 50
   currentLevel: 3
-  fillPercentage: 42
+  fillPercentage: 50
   borderThickness: 3
   minimumWallSize: 25
-  minimumRoomSize: 75
-  seed: 3.20365099687126E+19
-  useRandomSeed: 1
-  smoothingPasses: 4
+  minimumRoomSize: 50
+  seed: 1
+  useRandomSeed: 0
+  smoothingPasses: 1
   floor: {fileID: 963311219}
   items:
   - {fileID: 1077987160168496, guid: 3c12b4c309e8cee4da8294e4e3de37c0, type: 2}
