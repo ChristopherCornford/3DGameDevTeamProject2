@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-	public Transform camTransform;
+	public GameObject worldCam;
 	[Header("Movement")]
 	public float playerSpeed;
 
@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour {
 
 
 	void Update() {
-		velocity = new Vector3 (Input.GetAxisRaw ("Horizontal"), 0, Input.GetAxisRaw ("Vertical")).normalized * playerSpeed;
+		velocity = new Vector3 (Input.GetAxisRaw ("Horizontal"), 0, Input.GetAxisRaw ("Vertical")).normalized;
 	}
 	// Update is called once per frame
 	void FixedUpdate () {
@@ -29,5 +29,7 @@ public class PlayerController : MonoBehaviour {
 	void Move() {
 
 		rb.MovePosition (rb.position + velocity * Time.fixedDeltaTime);
+		Vector3 moveDir = worldCam.transform.TransformDirection (velocity);
+		transform.Translate (moveDir.normalized * playerSpeed);
 	}
 }

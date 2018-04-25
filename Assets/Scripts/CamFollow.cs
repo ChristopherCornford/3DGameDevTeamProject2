@@ -27,6 +27,7 @@ public class CamFollow : MonoBehaviour {
 		if (rotateAroundPlayer) {
 			Quaternion camTurnAngle = Quaternion.AngleAxis (-cameraTurnValue * cameraRotateSpeed, Vector3.up);
 			offset = camTurnAngle * offset;
+
 		}
 		transform.position = player.transform.position + offset;
 
