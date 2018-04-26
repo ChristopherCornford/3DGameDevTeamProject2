@@ -33,8 +33,8 @@ public class HideWalls : MonoBehaviour {
 		playerPos = player.transform.position;
 		RaycastHit findObject;
 		if (Physics.Raycast (transform.position, direction, out findObject, layerMask)) {
-			if (findObject.transform.tag == "Terrain") {
-				RaycastHit[] hits = Physics.SphereCastAll (playerPos, hiddenWallRadius, direction, distance, layerMask);
+			if (findObject.transform.tag == "NonWalkableTerrain") {
+				RaycastHit[] hits = Physics.SphereCastAll (playerPos, distance, direction, distance, layerMask);
 				for (int i = 0; i < hits.Length; i++) {
 					Transform currentHit = hits [i].transform;
 
