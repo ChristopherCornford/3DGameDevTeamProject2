@@ -13,4 +13,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: ShortSword
   itemType: 0
-  prefab: {fileID: 0}
+  prefab: {fileID: 100000, guid: 6d320c9e086f86f45a4aa0520030f69e, type: 3}

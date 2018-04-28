@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum ItemType {
 	shortSword, 
-	Dagger,
+	axe,
 	smallMeal,
 	bigMeal
 }
