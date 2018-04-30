@@ -25,11 +25,11 @@ public class PlayerController : MonoBehaviour {
 		horizontal = Input.GetAxisRaw ("Horizontal");
 		vertical = Input.GetAxisRaw ("Vertical");
 		rotate = Input.GetAxisRaw ("Mouse X") * Time.deltaTime * turnSpeed;
+		Rotate ();
 	}
 	// Update is called once per frame
 	void FixedUpdate () {
 		Move ();
-		Rotate ();
 	}
 
 	void Move() {
