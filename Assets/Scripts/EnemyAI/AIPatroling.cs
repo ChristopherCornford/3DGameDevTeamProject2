@@ -21,7 +21,7 @@ public class AIPatroling : MonoBehaviour {
 
 	public void Start () {
 
-		navMeshAgent = this.GetComponent<NavMeshAgent> ();
+		navMeshAgent = transform.parent.GetComponent<NavMeshAgent> ();
 
 		if (navMeshAgent == null) {
 			Debug.LogError ("NavMesh not connected to " + gameObject.name);
