@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour {
 
 	public AIPatroling aiPatroling;
+	public Animator enemyAnim;
 
 	public float fpsTargetDistance;
 	public float enemyLookDistance;
@@ -33,30 +34,20 @@ public class EnemyAI : MonoBehaviour {
 	public Camera cam;
 	private Plane[] planes;
 
-	[Header("Shooting")]
-	public AudioSource enemyShot;
-	public GameObject playerHead;
-	public Camera npcCam;
-	public GameObject hitEffect;
-	public float shotsMissed;
-	public float chanceToHit = 0.8f;
-	public float firerate = 1f;
-	public bool canFire;
-	public float randTemp;
-	public float temp;
+
 
 	// Use this for initialization
 	void Start () {
 		aiPatroling = GetComponent<AIPatroling> ();
 		fpsTarget = GameObject.FindGameObjectWithTag ("Player").transform;
 		myRenderer = GetComponent<Renderer> ();
+		enemyAnim = GetComponent<Animator> ();
 		//rb = GetComponent<Rigidbody> ();
 
-		cam = GetComponent<Camera> ();
+		cam = transform.parent.GetChild(1).GetComponent<Camera> ();
 		player = GameObject.FindGameObjectWithTag ("Player");
-		playerCollider = player.GetComponent<CharacterController> ();
-		playerHead = GameObject.FindGameObjectWithTag ("PlayerHead");
-		canFire = true;
+		playerCollider = player.GetComponent<BoxCollider> ();
+
 	}
 	
 	// Update is called once per frame
@@ -70,7 +61,6 @@ public class EnemyAI : MonoBehaviour {
 			Status = 1;
 		}
 		if (fpsTargetDistance < enemyMoveDistance && fpsTargetDistance > attackDistance ) {
-		//	moveTowardsPlayer ();
 			Status = 3;
 		}
 		if (fpsTargetDistance < attackDistance) {
@@ -86,12 +76,14 @@ public class EnemyAI : MonoBehaviour {
 		case 2:
 			myRenderer.material.color = Aware; 
 			aiPatroling.navMeshAgent.isStopped = false;
+			lookAtPlayer ();
 			Debug.Log ("Visuals Confirmed");
 			break;
 
 		case 3:
 			myRenderer.material.color = Moving;
-			aiPatroling.navMeshAgent.isStopped = false;
+			aiPatroling.navMeshAgent.isStopped = true;
+			MoveTowardsPlayer ();
 			Debug.Log ("Moving To Capture");
 			break;
 
@@ -99,29 +91,38 @@ public class EnemyAI : MonoBehaviour {
 			myRenderer.material.color = Hostile;
 			aiPatroling.navMeshAgent.isStopped = true;
 			Debug.Log ("Open Fire");
-			lookAtPlayer ();
 			enemyAttack ();
 			break;
 		}
 
 	}
+	void MoveTowardsPlayer () {
+		Vector3.MoveTowards (transform.position, player.transform.position, 1.0f * Time.deltaTime);
+	}
 
 	public void lookAtPlayer () {
-		Vector3 playerPos = player.transform.position;
-		Vector3 enemyPos = transform.position;
-		Vector3 delta = new Vector3 (playerPos.x - enemyPos.x, 0.0f, playerPos.z - enemyPos.z);
-		Quaternion rotation = Quaternion.LookRotation (delta);
-		transform.rotation = Quaternion.Slerp (transform.rotation, rotation, Time.deltaTime * damping);
-	}
-	public void enemyAttack(){
 		planes = GeometryUtility.CalculateFrustumPlanes (cam);
 		if (GeometryUtility.TestPlanesAABB (planes, playerCollider.bounds) == true) {
 			Debug.Log ("I see " + player.name);
-			lookAtPlayer ();
-		} else {
-			aiPatroling.SetDestination ();
-			Status = 3;
+			Vector3 playerPos = player.transform.position;
+			Vector3 enemyPos = transform.position;
+			Vector3 delta = new Vector3 (playerPos.x - enemyPos.x, 0.0f, playerPos.z - enemyPos.z);
+			Quaternion rotation = Quaternion.LookRotation (delta);
+			transform.rotation = Quaternion.Slerp (transform.rotation, rotation, Time.deltaTime * damping);
 		}
+	}
+	public void enemyAttack(){
+		enemyAnim.SetTrigger ("Attack");
+		RaycastHit hit;
+		if (Physics.Raycast (transform.position, Vector3.forward, out hit, attackDistance)) {
+			if (hit.transform.tag == "Player") {
+				player.transform.SendMessage ("TakeDamage");
+			}
+		}
+	}
+	void TakeDamage () {
+		enemyAnim.SetTrigger ("GetHit");
+		health--;
 	}
 	void Die () {
 		Destroy (gameObject);

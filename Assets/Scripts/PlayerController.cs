@@ -12,10 +12,12 @@ public class PlayerController : MonoBehaviour {
 	float vertical;
 	float rotate;
 	private Rigidbody rb;
+	private Animator playerAnim;
 
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
+		playerAnim = GetComponent<Animator> ();
 	}
 
 
@@ -27,16 +29,21 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 		Move ();
-		Rotate ();
+		StartCoroutine ("Rotate");
 	}
 
 	void Move() {
 		Vector3 moveDir = new Vector3 (horizontal, 0.0f, vertical).normalized * playerSpeed;
 		moveDir = Camera.main.transform.TransformDirection (moveDir);
 		moveDir.y = 0.0f;
-		rb.MovePosition (rb.position + moveDir * Time.fixedDeltaTime);
+		transform.Translate(transform.position + moveDir * Time.fixedDeltaTime);
 	}
-	void Rotate () {
+	IEnumerator Rotate () {
 		transform.Rotate (new Vector3 (0.0f, 0.0f, rotate));
+		yield return null;
+	}
+	public void TakeDamage () {
+		Debug.Log (name + " " + "took damage!");
+		playerAnim.SetTrigger ("TakeDamage");
 	}
 }
