@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-	public Camera worldCam;
 	[Header("Movement")]
 	public float playerSpeed;
 	public float turnSpeed;
@@ -34,8 +33,6 @@ public class PlayerController : MonoBehaviour {
 
 	void Move() {
 		Vector3 moveDir = new Vector3 (horizontal, 0.0f, vertical).normalized * playerSpeed;
-		moveDir = Camera.main.transform.TransformDirection (moveDir);
-		moveDir.y = 0.0f;
 		transform.Translate(transform.position + moveDir * Time.fixedDeltaTime);
 	}
 	IEnumerator Rotate () {

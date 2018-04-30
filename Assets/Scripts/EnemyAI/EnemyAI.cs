@@ -76,7 +76,7 @@ public class EnemyAI : MonoBehaviour {
 		case 2:
 			myRenderer.material.color = Aware; 
 			aiPatroling.navMeshAgent.isStopped = false;
-			lookAtPlayer ();
+			//lookAtPlayer ();
 			Debug.Log ("Visuals Confirmed");
 			break;
 
@@ -100,7 +100,7 @@ public class EnemyAI : MonoBehaviour {
 		Vector3.MoveTowards (transform.position, player.transform.position, 1.0f * Time.deltaTime);
 	}
 
-	public void lookAtPlayer () {
+/*	public void lookAtPlayer () {
 		planes = GeometryUtility.CalculateFrustumPlanes (cam);
 		if (GeometryUtility.TestPlanesAABB (planes, playerCollider.bounds) == true) {
 			Debug.Log ("I see " + player.name);
@@ -110,7 +110,7 @@ public class EnemyAI : MonoBehaviour {
 			Quaternion rotation = Quaternion.LookRotation (delta);
 			transform.rotation = Quaternion.Slerp (transform.rotation, rotation, Time.deltaTime * damping);
 		}
-	}
+	}*/
 	public void enemyAttack(){
 		enemyAnim.SetTrigger ("Attack");
 		RaycastHit hit;
