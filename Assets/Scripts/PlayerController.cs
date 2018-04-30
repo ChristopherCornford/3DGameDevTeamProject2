@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
+	public Camera cam;
+	private Rigidbody rb;
 
 	[Header("Movement")]
 	public float playerSpeed;
@@ -10,7 +12,6 @@ public class PlayerController : MonoBehaviour {
 	float horizontal;
 	float vertical;
 	float rotate;
-	private Rigidbody rb;
 	private Animator playerAnim;
 
 	// Use this for initialization
@@ -28,16 +29,17 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 		Move ();
-		StartCoroutine ("Rotate");
+		Rotate ();
 	}
 
 	void Move() {
 		Vector3 moveDir = new Vector3 (horizontal, 0.0f, vertical).normalized * playerSpeed;
-		transform.Translate(transform.position + moveDir * Time.fixedDeltaTime);
+		moveDir = cam.transform.TransformDirection (moveDir);
+		moveDir.y = 0.0f;
+		rb.MovePosition (rb.position + moveDir * Time.fixedDeltaTime);
 	}
-	IEnumerator Rotate () {
+	void Rotate () {
 		transform.Rotate (new Vector3 (0.0f, 0.0f, rotate));
-		yield return null;
 	}
 	public void TakeDamage () {
 		Debug.Log (name + " " + "took damage!");
