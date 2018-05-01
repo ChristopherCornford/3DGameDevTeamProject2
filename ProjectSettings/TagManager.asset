@@ -8,6 +8,9 @@ TagManager:
   - WalkableTerrain
   - NonWalkableTerrain
   - Waypoint
+  - Axe
+  - Sword
+  - Fruit
   layers:
   - Default
   - TransparentFX

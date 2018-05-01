@@ -113,10 +113,11 @@ public class EnemyAI : MonoBehaviour {
 	}*/
 	public void enemyAttack(){
 		enemyAnim.SetTrigger ("Attack");
+		Vector3 direction = player.transform.position - transform.position;
 		RaycastHit hit;
-		if (Physics.Raycast (transform.position, Vector3.forward, out hit, attackDistance)) {
+		if (Physics.Raycast (transform.position, direction, out hit, attackDistance)) {
 			if (hit.transform.tag == "Player") {
-				player.transform.SendMessage ("TakeDamage");
+				hit.transform.SendMessage ("TakeDamage");
 			}
 		}
 	}

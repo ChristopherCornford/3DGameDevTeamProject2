@@ -43,6 +43,14 @@ public class PlayerController : MonoBehaviour {
 	}
 	public void TakeDamage () {
 		Debug.Log (name + " " + "took damage!");
-		playerAnim.SetTrigger ("TakeDamage");
+		StartCoroutine ("AnimationBuffer", "TakeDamage");
+	}
+	IEnumerator AnimationBuffer  (string animation) {
+		switch (animation) {
+		case "TakeDamage":
+			yield return new WaitForSeconds (.25f);
+			playerAnim.SetTrigger ("TakeDamage");
+			break;
+		}
 	}
 }
