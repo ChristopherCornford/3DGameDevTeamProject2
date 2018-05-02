@@ -5,19 +5,27 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 	public Camera cam;
 	private Rigidbody rb;
-
+	public ItemHolder itemHolder;
 	[Header("Movement")]
 	public float playerSpeed;
 	public float turnSpeed;
 	float horizontal;
 	float vertical;
 	float rotate;
+	bool canPickUp = true;
 	private Animator playerAnim;
+	[Header("Player Variables")]
+	public int Health;
 
+	[Header("Item References")]
+	public Items sword;
+	public Items axe;
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
 		playerAnim = GetComponent<Animator> ();
+		itemHolder = GetComponentInChildren<ItemHolder> ();
+		itemHolder.currentItem = axe;
 	}
 
 
@@ -52,5 +60,14 @@ public class PlayerController : MonoBehaviour {
 			playerAnim.SetTrigger ("TakeDamage");
 			break;
 		}
+	}
+	void OnTriggerEnter (Collider collider) {
+		switch(collider.transform.tag){
+		case "Sword":
+			itemHolder.currentItem = sword;
+			itemHolder.SpawnItem (canPickUp);
+			break;
+
+	}
 	}
 }

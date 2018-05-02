@@ -12,7 +12,7 @@ public class ItemHolder : MonoBehaviour {
 	void Update () {
 		SpawnItem (spawnItem);
 	}
-	void SpawnItem (bool readyToSpawn) {
+	public void SpawnItem (bool readyToSpawn) {
 		if (readyToSpawn) {
 			GameObject heldItem = Instantiate (currentItem.prefab, transform.position, Quaternion.identity) as GameObject;
 			heldItem.transform.SetParent (transform); 	
