@@ -76,11 +76,9 @@ public class MeshGenerator : MonoBehaviour {
 		wallMesh.triangles = wallTriangles.ToArray ();
 		walls.mesh = wallMesh;
 
-		int tileAmount = 10;
+		//int tileAmount = 10;
 		Vector2[] uvs = new Vector2[wallMesh.vertices.Length];
 		for (int i = 0; i < wallMesh.vertices.Length; i++) {
-			float percentX = Mathf.InverseLerp (-map.GetLength (0) / 2 * squareSize, map.GetLength (0) / 2 * squareSize, wallMesh.vertices [i].x) * tileAmount;
-			float percentY = Mathf.InverseLerp (-map.GetLength (1) / 2 * squareSize, map.GetLength (1) / 2 * squareSize, wallMesh.vertices [i].z) * tileAmount;
 			float x = wallMesh.vertices [i].x;
 			if (i + 1 < wallMesh.vertices.Length && x == wallMesh.vertices [i + 1].x && i > 1 && wallMesh.vertices [i - 1].x == x) {
 				x = wallMesh.vertices [i].z;

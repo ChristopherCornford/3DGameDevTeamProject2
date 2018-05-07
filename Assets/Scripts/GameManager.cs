@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 	NavmeshBaking navMesh;
-	GameObject[] floorTiles;
+	//GameObject[] floorTiles;
 
 
 	void Awake() {
@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		navMesh.BakeNavMesh ();
-		floorTiles = GameObject.FindGameObjectsWithTag ("WalkableTerrain");
+		//floorTiles = GameObject.FindGameObjectsWithTag ("WalkableTerrain");
 	}
 	
 	// Update is called once per frame

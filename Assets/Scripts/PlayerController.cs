@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour {
 	float vertical;
 	float rotate;
 	bool canPickUp = true;
+	bool canAttack = true;
 	private Animator playerAnim;
 	[Header("Player Variables")]
 	public int Health;
@@ -24,8 +25,8 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
 		playerAnim = GetComponent<Animator> ();
-		itemHolder = GetComponentInChildren<ItemHolder> ();
-		itemHolder.currentItem = axe;
+		//itemHolder = GetComponentInChildren<ItemHolder> ();
+		//itemHolder.currentItem = axe;
 	}
 
 
@@ -34,6 +35,9 @@ public class PlayerController : MonoBehaviour {
 		vertical = Input.GetAxisRaw ("Vertical");
 		rotate = Input.GetAxisRaw ("Mouse X") * Time.deltaTime * turnSpeed;
 		Rotate ();
+		if (Input.GetButtonDown ("Attack")) {
+			Attack ();
+		}
 	}
 	// Update is called once per frame
 	void FixedUpdate () {
@@ -49,6 +53,13 @@ public class PlayerController : MonoBehaviour {
 	void Rotate () {
 		transform.Rotate (new Vector3 (0.0f, 0.0f, rotate));
 	}
+
+	public void Attack() {
+		if (canAttack) {
+			StartCoroutine ("AnimationBuffer", "Attack");
+		}
+	}
+
 	public void TakeDamage () {
 		Debug.Log (name + " " + "took damage!");
 		StartCoroutine ("AnimationBuffer", "TakeDamage");
@@ -59,13 +70,31 @@ public class PlayerController : MonoBehaviour {
 			yield return new WaitForSeconds (.25f);
 			playerAnim.SetTrigger ("TakeDamage");
 			break;
+		case "PickUpItem":
+			playerAnim.SetBool ("PickUpItem", true);
+			yield return new WaitForSeconds (1.0f);
+			playerAnim.SetBool ("PickUpItem", false);
+			break;
+		case "Attack":
+			canAttack = false;
+			playerAnim.SetBool ("Attack", true);
+			yield return new WaitForSeconds (1.0f);
+			playerAnim.SetBool ("Attack", false);
+			canAttack = true;
+			break;
 		}
 	}
 	void OnTriggerEnter (Collider collider) {
 		switch(collider.transform.tag){
 		case "Sword":
+			StartCoroutine ("AnimationBuffer", "PickUpItem");
 			itemHolder.currentItem = sword;
 			itemHolder.SpawnItem (canPickUp);
+			break;
+		case "Fruit":
+			StartCoroutine ("AnimationBuffer", "PickUpItem");
+			Health++;
+			Destroy (collider.gameObject);
 			break;
 
 	}
