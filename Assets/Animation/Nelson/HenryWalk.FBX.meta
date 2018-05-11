@@ -1,0 +1,173 @@
+fileFormatVersion: 2
+guid: 2a42da9f73ddf0d49a2bb7aad92c244e
+timeCreated: 1526060020
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: head
+    100002: //RootNode
+    100004: left arm (stage)
+    100006: left foot (stage)
+    100008: left hand (stage)
+    100010: left leg (stage)
+    100012: right arm (stage)
+    100014: right foot (stage)
+    100016: right hand (stage)
+    100018: right leg
+    100020: upper torso
+    400000: head
+    400002: //RootNode
+    400004: left arm (stage)
+    400006: left foot (stage)
+    400008: left hand (stage)
+    400010: left leg (stage)
+    400012: right arm (stage)
+    400014: right foot (stage)
+    400016: right hand (stage)
+    400018: right leg
+    400020: upper torso
+    2100000: No Name
+    2300000: head
+    2300002: //RootNode
+    2300004: left arm (stage)
+    2300006: left foot (stage)
+    2300008: left hand (stage)
+    2300010: left leg (stage)
+    2300012: right arm (stage)
+    2300014: right foot (stage)
+    2300016: right hand (stage)
+    2300018: right leg
+    2300020: upper torso
+    3300000: head
+    3300002: //RootNode
+    3300004: left arm (stage)
+    3300006: left foot (stage)
+    3300008: left hand (stage)
+    3300010: left leg (stage)
+    3300012: right arm (stage)
+    3300014: right foot (stage)
+    3300016: right hand (stage)
+    3300018: right leg
+    3300020: upper torso
+    4300000: lower torso
+    4300002: right leg
+    4300004: right foot (stage)
+    4300006: left leg (stage)
+    4300008: left foot (stage)
+    4300010: upper torso
+    4300012: head
+    4300014: right arm (stage)
+    4300016: right hand (stage)
+    4300018: left arm (stage)
+    4300020: left hand (stage)
+    7400000: Take 001
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 100
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
