@@ -9,24 +9,22 @@ public class PlayerController : MonoBehaviour {
 	[Header("Movement")]
 	public float playerSpeed;
 	public float turnSpeed;
-	float horizontal;
-	float vertical;
+	public float horizontal;
+	public float vertical;
 	float rotate;
-	bool canPickUp = true;
 	bool canAttack = true;
 	private Animator playerAnim;
 	[Header("Player Variables")]
 	public int Health;
 
-	[Header("Item References")]
-	public Items sword;
-	public Items axe;
+	[Header("Henry's Magical Pockets")]
+	public GameObject henrySword;
+	public GameObject henryAxe;
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
 		playerAnim = GetComponent<Animator> ();
-		//itemHolder = GetComponentInChildren<ItemHolder> ();
-		//itemHolder.currentItem = axe;
+		henryAxe.SetActive(true);
 	}
 
 
@@ -37,6 +35,9 @@ public class PlayerController : MonoBehaviour {
 		Rotate ();
 		if (Input.GetButtonDown ("Attack")) {
 			Attack ();
+		}
+		if (Health <= 0) {
+			Destroy (gameObject);
 		}
 	}
 	// Update is called once per frame
@@ -69,6 +70,7 @@ public class PlayerController : MonoBehaviour {
 
 	public void TakeDamage () {
 		Debug.Log (name + " " + "took damage!");
+		Health--;
 		StartCoroutine ("AnimationBuffer", "TakeDamage");
 	}
 	IEnumerator AnimationBuffer  (string animation) {
@@ -95,8 +97,8 @@ public class PlayerController : MonoBehaviour {
 		switch(collider.transform.tag){
 		case "Sword":
 			StartCoroutine ("AnimationBuffer", "PickUpItem");
-			itemHolder.currentItem = sword;
-			itemHolder.SpawnItem (canPickUp);
+			henryAxe.SetActive (false);
+			henrySword.SetActive (true);
 			break;
 		case "Fruit":
 			StartCoroutine ("AnimationBuffer", "PickUpItem");

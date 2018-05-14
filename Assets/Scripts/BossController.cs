@@ -78,7 +78,7 @@ public class BossController : MonoBehaviour {
 		anim.SetTrigger ("TakeDamage");
 	}
 
-	void OnCollisionEnter(Collider collider) {
+	void OnCollisionEnter (Collision collider) {
 		if (collider.transform.tag == "Player") {
 			collider.transform.SendMessage ("TakeDamage");
 		}

@@ -27,6 +27,7 @@ public class EnemyAI : MonoBehaviour {
 	public Transform fpsTarget;
 	//Rigidbody rb;
 	Renderer myRenderer;
+	bool canAttack;
 
 	[Header("AI Seeing")]
 	public GameObject player;
@@ -91,7 +92,9 @@ public class EnemyAI : MonoBehaviour {
 			myRenderer.material.color = Hostile;
 			aiPatroling.navMeshAgent.isStopped = true;
 			Debug.Log ("Open Fire");
-			enemyAttack ();
+			if (canAttack) {
+				StartCoroutine ("enemyAttack");
+			}
 			break;
 		}
 
@@ -111,7 +114,8 @@ public class EnemyAI : MonoBehaviour {
 			transform.rotation = Quaternion.Slerp (transform.rotation, rotation, Time.deltaTime * damping);
 		}
 	}*/
-	public void enemyAttack(){
+	public IEnumerator enemyAttack(){
+		canAttack = false;
 		enemyAnim.SetTrigger ("Attack");
 		Vector3 direction = player.transform.position - transform.position;
 		RaycastHit hit;
@@ -120,6 +124,8 @@ public class EnemyAI : MonoBehaviour {
 				hit.transform.SendMessage ("TakeDamage");
 			}
 		}
+		yield return new WaitForSeconds (0.5f);
+		canAttack = true;
 	}
 	void TakeDamage () {
 		enemyAnim.SetTrigger ("GetHit");

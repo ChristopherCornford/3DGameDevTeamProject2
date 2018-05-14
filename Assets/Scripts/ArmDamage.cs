@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ArmDamage : MonoBehaviour {
 
-	void OnCollisionEnter (Collider collider){
+	void OnCollisionEnter (Collision collider){
 		if (collider.transform.tag == "Player") {
 			collider.transform.SendMessage ("TakeDamage");
 		}
