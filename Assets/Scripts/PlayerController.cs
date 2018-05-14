@@ -46,17 +46,17 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Move() {
-
-		if (horizontal > 0 || vertical > 0) {
-			playerAnim.SetBool ("isWalking", true);
-		} else {
-			playerAnim.SetBool ("isWalking", false);
-		}
-
 		Vector3 moveDir = new Vector3 (horizontal, 0.0f, vertical).normalized * playerSpeed;
 		moveDir = cam.transform.TransformDirection (moveDir);
 		moveDir.y = 0.0f;
 		rb.MovePosition (rb.position + moveDir * Time.fixedDeltaTime);
+		/*
+		if (horizontal != 0 || vertical != 0) {
+			playerAnim.SetBool ("isWalking", true);
+		} else {
+			playerAnim.SetBool ("isWalking", false);
+		}
+*/
 	}
 	void Rotate () {
 		transform.Rotate (new Vector3 (0.0f, 0.0f, rotate));

@@ -27,7 +27,7 @@ public class EnemyAI : MonoBehaviour {
 	public Transform fpsTarget;
 	//Rigidbody rb;
 	Renderer myRenderer;
-	bool canAttack;
+	bool canAttack = true;
 
 	[Header("AI Seeing")]
 	public GameObject player;
@@ -124,7 +124,7 @@ public class EnemyAI : MonoBehaviour {
 				hit.transform.SendMessage ("TakeDamage");
 			}
 		}
-		yield return new WaitForSeconds (0.5f);
+		yield return new WaitForSeconds (1.5f);
 		canAttack = true;
 	}
 	void TakeDamage () {
