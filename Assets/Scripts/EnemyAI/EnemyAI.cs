@@ -82,7 +82,7 @@ public class EnemyAI : MonoBehaviour {
 
 		case 3:
 			myRenderer.material.color = Moving;
-			aiPatroling.navMeshAgent.isStopped = true;
+			aiPatroling.navMeshAgent.isStopped = false;
 			MoveTowardsPlayer ();
 			Debug.Log ("Moving To Capture");
 			break;
@@ -97,7 +97,7 @@ public class EnemyAI : MonoBehaviour {
 
 	}
 	void MoveTowardsPlayer () {
-		Vector3.MoveTowards (transform.position, player.transform.position, 1.0f * Time.deltaTime);
+		aiPatroling.navMeshAgent.SetDestination (player.transform.position);
 	}
 
 /*	public void lookAtPlayer () {
@@ -124,6 +124,9 @@ public class EnemyAI : MonoBehaviour {
 	void TakeDamage () {
 		enemyAnim.SetTrigger ("GetHit");
 		health--;
+		if (health <= 0) {
+			Die ();
+		}
 	}
 	void Die () {
 		Destroy (gameObject);
