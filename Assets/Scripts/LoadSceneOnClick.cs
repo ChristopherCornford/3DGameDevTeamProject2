@@ -3,7 +3,6 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class LoadSceneOnClick : MonoBehaviour {
-	public int sceneIndex;
 
 	void Update(){
 		if (Input.anyKey) {

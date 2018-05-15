@@ -7,25 +7,31 @@ using TMPro;
 public class SceneLoader : MonoBehaviour {
 
 	public TMP_Text readyText;
+	AsyncOperation ops;
+	bool isReadyToPlay;
 
 	void Start () {
 		readyText.enabled = false;
 		StartCoroutine ("LoadLevel", 2);
 	}
-	public IEnumerator LoadLevel (int sceneIndex) {
-		yield return null;
-
-		AsyncOperation ops = SceneManager.LoadSceneAsync (sceneIndex);
-		ops.allowSceneActivation = false;
-		while (!ops.isDone) {
-			Debug.Log (ops.progress);
-			if (ops.progress >= 0.9f) {
-				readyText.enabled = true;
-				if (Input.anyKeyDown) {
-					ops.allowSceneActivation = true;
-				}
+	void Update () {
+		if (isReadyToPlay) {
+			readyText.enabled = true;
+			if (Input.anyKeyDown) {
+				ops.allowSceneActivation = true;
 			}
 		}
+	}
+	IEnumerator LoadLevel (int sceneIndex) {
+		yield return null;
+
+		ops = SceneManager.LoadSceneAsync (sceneIndex);
+		ops.allowSceneActivation = false;
+
+		yield return new WaitForSeconds (7.5f);
+
+		isReadyToPlay = true;
+
 		yield return null;
 	}
 }

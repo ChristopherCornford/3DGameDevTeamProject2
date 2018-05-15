@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
 	public Camera cam;
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour {
 	public GameObject henryAxe;
 	// Use this for initialization
 	void Start () {
+		Cursor.visible = false;
 		rb = GetComponent<Rigidbody> ();
 		playerAnim = GetComponent<Animator> ();
 		pauseScreen = GameObject.FindGameObjectWithTag ("PauseScreen");
@@ -139,6 +141,9 @@ public class PlayerController : MonoBehaviour {
 			StartCoroutine ("AnimationBuffer", "PickUpItem");
 			Health++;
 			Destroy (collider.gameObject);
+			break;
+		case "Freedom":
+			SceneManager.LoadScene (3);
 			break;
 
 	}
