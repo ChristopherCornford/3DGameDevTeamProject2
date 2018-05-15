@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Confined;
 		rb = GetComponent<Rigidbody> ();
 		playerAnim = GetComponent<Animator> ();
 		pauseScreen = GameObject.FindGameObjectWithTag ("PauseScreen");
