@@ -117,6 +117,7 @@ public class EnemyAI : MonoBehaviour {
 	public IEnumerator enemyAttack(){
 		canAttack = false;
 		enemyAnim.SetTrigger ("Attack");
+		yield return new WaitForSeconds (0.5f);
 		Vector3 direction = player.transform.position - transform.position;
 		RaycastHit hit;
 		if (Physics.Raycast (transform.position, direction, out hit, attackDistance)) {
@@ -128,6 +129,7 @@ public class EnemyAI : MonoBehaviour {
 		canAttack = true;
 	}
 	void TakeDamage () {
+		Debug.Log ("Enemy was Hit!!");
 		enemyAnim.SetTrigger ("GetHit");
 		health--;
 		if (health <= 0) {

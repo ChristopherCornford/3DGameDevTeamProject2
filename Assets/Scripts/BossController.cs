@@ -5,8 +5,10 @@ using UnityEngine;
 public class BossController : MonoBehaviour {
 
 	public Animator anim;
+	public float currentAlpha;
 
 	public GameObject player;
+	public int Health;
 	public float playerDistance;
 	public float smashAttackDistance;
 	public float swipeAttackDistance;
@@ -17,6 +19,7 @@ public class BossController : MonoBehaviour {
 	protected float swipeRadius;
 
 	bool canIAttack = true;
+	bool canBeDamaged = true;
 
 	public void OnDrawGizmos() {
 
@@ -36,6 +39,9 @@ public class BossController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		playerDistance = Vector3.Distance (player.transform.position, transform.position);
+		if (IsThePlayerNearMe ()) {
+			//LookAtPlayer ();
+		}
 		if (canIAttack) {
 			if (playerDistance < smashAttackDistance && playerDistance > swipeAttackDistance) {
 				StartCoroutine ("SmashAttack", IsThePlayerNearMe ());
@@ -44,7 +50,17 @@ public class BossController : MonoBehaviour {
 				StartCoroutine ("SwipeAttack", IsThePlayerNearMe ());
 			}
 		}
+		if (Health == 0) {
+			Die ();
+		}
 	}
+/*	void LookAtPlayer () {
+		Vector3 playerPos = player.transform.position;
+		Vector3 enemyPos = transform.position;
+		Vector3 delta = new Vector3 (playerPos.x - enemyPos.x, 0.0f, playerPos.z - enemyPos.z);
+		Quaternion rotation = Quaternion.LookRotation (delta);
+		transform.rotation = Quaternion.Slerp (transform.rotation, rotation, Time.deltaTime * 0.5f);
+	}*/
 
 	bool IsThePlayerNearMe () {
 		if (playerDistance < smashAttackDistance) {
@@ -75,12 +91,20 @@ public class BossController : MonoBehaviour {
 	}
 
 	void TakeDamage () {
-		anim.SetTrigger ("TakeDamage");
+		if (canBeDamaged) {
+			StartCoroutine ("Damage");
+		}
 	}
 
-	void OnCollisionEnter (Collision collider) {
-		if (collider.transform.tag == "Player") {
-			collider.transform.SendMessage ("TakeDamage");
-		}
+	IEnumerator Damage () {
+		canBeDamaged = false;
+		anim.SetTrigger ("TakeDamage");
+		Health--;
+		yield return new WaitForSeconds(1.0f);
+		canBeDamaged = true;		
+	}
+	void Die () {
+		anim.SetBool ("isDead", true);
+		Destroy (gameObject);
 	}
 }

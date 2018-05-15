@@ -5,6 +5,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 	public Camera cam;
 	private Rigidbody rb;
+	GameObject pauseScreen;
+	Animator pauseAnim;
+	bool pauseScreenActive = false;
 	public ItemHolder itemHolder;
 	[Header("Movement")]
 	public float playerSpeed;
@@ -24,7 +27,12 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
 		playerAnim = GetComponent<Animator> ();
+		pauseScreen = GameObject.FindGameObjectWithTag ("PauseScreen");
+		pauseAnim = pauseScreen.transform.GetChild (1).GetComponent<Animator> ();
+		pauseScreen.SetActive (false);
 		henryAxe.SetActive(true);
+		henryAxe.GetComponent<BoxCollider> ().enabled = false;
+		henrySword.GetComponent<BoxCollider> ().enabled = false;
 	}
 
 
@@ -38,6 +46,28 @@ public class PlayerController : MonoBehaviour {
 		}
 		if (Health <= 0) {
 			Destroy (gameObject);
+		}
+
+		if (pauseScreenActive) {
+			if (Input.anyKeyDown) {
+				pauseScreen.SetActive (false);
+				pauseScreenActive = false;
+			}
+		} 
+
+		if (pauseScreenActive) {
+			Time.timeScale = 0.0f;
+		} else if (!pauseScreenActive) {
+			Time.timeScale = 1.0f;
+		}
+	}
+	void LateUpdate() {
+		if (Input.GetButtonDown("Pause")) {
+			if (!pauseScreenActive) {
+				pauseScreen.SetActive (true);
+				pauseAnim.SetTrigger ("isPaused");
+				pauseScreenActive = true;
+			}
 		}
 	}
 	// Update is called once per frame
@@ -86,9 +116,13 @@ public class PlayerController : MonoBehaviour {
 			break;
 		case "Attack":
 			canAttack = false;
+			henryAxe.GetComponent<BoxCollider> ().enabled = true;
+			henrySword.GetComponent<BoxCollider> ().enabled = true;
 			playerAnim.SetBool ("Attack", true);
 			yield return new WaitForSeconds (1.0f);
 			playerAnim.SetBool ("Attack", false);
+			henryAxe.GetComponent<BoxCollider> ().enabled = false;
+			henrySword.GetComponent<BoxCollider> ().enabled = false;
 			canAttack = true;
 			break;
 		}
@@ -99,6 +133,7 @@ public class PlayerController : MonoBehaviour {
 			StartCoroutine ("AnimationBuffer", "PickUpItem");
 			henryAxe.SetActive (false);
 			henrySword.SetActive (true);
+			Destroy (collider.gameObject);
 			break;
 		case "Fruit":
 			StartCoroutine ("AnimationBuffer", "PickUpItem");
@@ -107,5 +142,9 @@ public class PlayerController : MonoBehaviour {
 			break;
 
 	}
+	}
+	void PauseGame () {
+		pauseScreen.SetActive (true);
+		pauseScreenActive = true;
 	}
 }

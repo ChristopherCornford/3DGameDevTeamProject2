@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: af86c06a1e633064288ceba61a2ced6d
+timeCreated: 1526376141
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Caveat
+  fontNames:
+  - Caveat
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 54e17c444772ef544858dfb9a6f3e345, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

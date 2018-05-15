@@ -11,6 +11,9 @@ TagManager:
   - Axe
   - Sword
   - Fruit
+  - Enemy
+  - Boss
+  - PauseScreen
   layers:
   - Default
   - TransparentFX

@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4528197508325272}
   m_Layer: 0
   m_Name: PauseScreen
-  m_TagString: Untagged
+  m_TagString: PauseScreen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -82,7 +82,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1956571147106124}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.36019, y: 0.01824832, z: -0.99685097}
+  m_LocalPosition: {x: -4.36019, y: 0.02, z: 3.37}
   m_LocalScale: {x: 9.778921, y: 9.778921, z: 9.778921}
   m_Children: []
   m_Father: {fileID: 4528197508325272}
@@ -108,8 +108,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1214024465259554}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.36019, y: -0.01824832, z: -4.003149}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.289, y: -0.021, z: 0.227}
+  m_LocalScale: {x: 0.055543765, y: 0.05554377, z: 0.05554377}
   m_Children:
   - {fileID: 4494655099947366}
   - {fileID: 4097494318944172}
@@ -141,7 +141,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 34c1251b2725e594d988c884eb25161a, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
